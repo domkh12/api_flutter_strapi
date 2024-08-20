@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "benners",
+  "info": {
+    "singularName": "benner",
+    "pluralName": "benners",
+    "displayName": "Benner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}
