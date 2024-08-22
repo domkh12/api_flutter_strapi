@@ -724,6 +724,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    profile: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::profile.profile'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -966,6 +971,44 @@ export interface ApiProductProduct extends Schema.CollectionType {
   };
 }
 
+export interface ApiProfileProfile extends Schema.CollectionType {
+  collectionName: 'profiles';
+  info: {
+    singularName: 'profile';
+    pluralName: 'profiles';
+    displayName: 'Profile';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullName: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Required;
+    date: Attribute.Date;
+    image: Attribute.Media<'images'>;
+    user: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTageTage extends Schema.CollectionType {
   collectionName: 'tages';
   info: {
@@ -1017,6 +1060,7 @@ declare module '@strapi/types' {
       'api::popular-category.popular-category': ApiPopularCategoryPopularCategory;
       'api::popular-product.popular-product': ApiPopularProductPopularProduct;
       'api::product.product': ApiProductProduct;
+      'api::profile.profile': ApiProfileProfile;
       'api::tage.tage': ApiTageTage;
     }
   }
